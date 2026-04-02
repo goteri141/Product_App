@@ -99,6 +99,23 @@ class _HomePageState extends State<HomePage> {
   // TODO: Complete this function!
   Future<void> _deleteProduct(String productId) async {
     // Your code here
+    String action = 'delete';
+    
+    ElevatedButton(
+                child: Text(action == 'create' ? 'Create' : 'Update'),
+                onPressed: () async {
+                  String name = _nameController.text;
+                  double price = double.parse(_priceController.text);
+                  if (name.isNotEmpty) {
+                    if (action == 'delete') {
+                      await _products.doc(productId).delete();
+                    }
+                    _nameController.text = '';
+                    _priceController.text = '';
+                    Navigator.of(context).pop();
+                  }
+                },
+    );
     
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('You have successfully deleted a product')),
